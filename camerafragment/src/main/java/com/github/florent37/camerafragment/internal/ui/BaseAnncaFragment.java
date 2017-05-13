@@ -35,6 +35,8 @@ import com.github.florent37.camerafragment.internal.enums.Camera;
 import com.github.florent37.camerafragment.internal.enums.Flash;
 import com.github.florent37.camerafragment.internal.enums.MediaAction;
 import com.github.florent37.camerafragment.internal.enums.Record;
+import com.github.florent37.camerafragment.internal.manager.impl.Camera1Manager;
+import com.github.florent37.camerafragment.internal.manager.impl.Camera2Manager;
 import com.github.florent37.camerafragment.internal.timer.CountdownTask;
 import com.github.florent37.camerafragment.internal.timer.TimerTask;
 import com.github.florent37.camerafragment.internal.timer.TimerTaskBase;
@@ -44,6 +46,9 @@ import com.github.florent37.camerafragment.internal.ui.view.AspectFrameLayout;
 import com.github.florent37.camerafragment.internal.utils.CameraHelper;
 import com.github.florent37.camerafragment.internal.utils.Size;
 import com.github.florent37.camerafragment.internal.utils.Utils;
+import com.github.florent37.camerafragment.internal.utils.ZoomAndFocusHandler;
+import com.github.florent37.camerafragment.internal.utils.zoom.SimpleZoomHandler;
+import com.github.florent37.camerafragment.internal.utils.zoom.SimpleZoomHandlerBuilder;
 import com.github.florent37.camerafragment.listeners.CameraFragmentControlsListener;
 import com.github.florent37.camerafragment.listeners.CameraFragmentResultListener;
 import com.github.florent37.camerafragment.listeners.CameraFragmentStateListener;
@@ -235,6 +240,7 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
                 MediaAction.ACTION_VIDEO : MediaAction.ACTION_PHOTO;
     }
 
+    @SuppressWarnings("deprecated")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -271,6 +277,7 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
 
         notifyListeners();
 
+        previewContainer.setOnTouchListener(new ZoomAndFocusHandler());
     }
 
     public void notifyListeners() {

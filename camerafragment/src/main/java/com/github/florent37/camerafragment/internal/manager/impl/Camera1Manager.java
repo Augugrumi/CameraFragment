@@ -52,6 +52,12 @@ public class Camera1Manager extends BaseCameraManager<Integer, SurfaceHolder.Cal
 
     private Integer futurFlashMode;
 
+    private static Camera cameraInstance = null;
+
+    public static Camera getCameraInstance() {
+        return cameraInstance;
+    }
+
     @Override
     public void openCamera(final Integer cameraId,
                            final CameraOpenListener<Integer, SurfaceHolder.Callback> cameraOpenListener) {
@@ -111,6 +117,7 @@ public class Camera1Manager extends BaseCameraManager<Integer, SurfaceHolder.Cal
                             }
                         });
                     }
+                    cameraInstance = camera;
                 } catch (Exception error) {
                     Log.d(TAG, "Can't open camera: " + error.getMessage());
                     if (cameraOpenListener != null) {
@@ -145,6 +152,7 @@ public class Camera1Manager extends BaseCameraManager<Integer, SurfaceHolder.Cal
                 }
             }
         });
+        cameraInstance = null;
     }
 
     @Override

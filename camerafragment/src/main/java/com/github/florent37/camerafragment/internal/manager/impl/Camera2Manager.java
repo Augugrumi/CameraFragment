@@ -141,6 +141,12 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     };
     private CameraFragmentResultListener callback;
 
+    private static String currentCameraIdInstance = null;
+
+    public static String getCurrentCameraIdInstance() {
+        return currentCameraIdInstance;
+    }
+
     @Override
     public void initializeCameraManager(ConfigurationProvider configurationProvider, Context context) {
         super.initializeCameraManager(configurationProvider, context);
@@ -178,6 +184,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     @Override
     public void openCamera(String cameraId, final CameraOpenListener<String, TextureView.SurfaceTextureListener> cameraOpenListener) {
         this.currentCameraId = cameraId;
+        currentCameraIdInstance = currentCameraId;
         this.cameraOpenListener = cameraOpenListener;
         backgroundHandler.post(new Runnable() {
             @Override
@@ -228,6 +235,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
                 }
             }
         });
+        currentCameraIdInstance = null;
     }
 
     @Override
