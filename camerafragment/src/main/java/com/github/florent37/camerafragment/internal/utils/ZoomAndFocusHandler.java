@@ -1,6 +1,7 @@
 package com.github.florent37.camerafragment.internal.utils;
 
 import android.hardware.Camera;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -27,6 +28,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         mCamera = Camera1Manager.getCameraInstance();
         currentCameraId = Camera2Manager.getCurrentCameraIdInstance();
         if (Camera1Manager.getCameraInstance() != null) {
+            Log.i("ZOOM_FEATURE_CAMERA", "camera1");
             mCamera = Camera1Manager.getCameraInstance();
             android.hardware.Camera.Parameters params = mCamera.getParameters();
             int action = event.getAction();
@@ -45,6 +47,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                 }
             }
         } else if (currentCameraId != null){
+            Log.i("ZOOM_FEATURE_CAMERA", "camera2" + currentCameraId);
             /*CameraManager manager = (CameraManager) view.getContext().getSystemService(Context.CAMERA_SERVICE);
             int action = event.getAction();
             if (event.getPointerCount() > 1) {
