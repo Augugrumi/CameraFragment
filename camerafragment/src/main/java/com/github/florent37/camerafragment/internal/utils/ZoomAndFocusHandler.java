@@ -75,6 +75,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                 current_finger_spacing = getFingerSpacing(event);
 
                 if (mDist != 0) {
+
                     if (current_finger_spacing > mDist && maxzoom > zoom_level) {
                         zoom_level++;
 
@@ -90,6 +91,8 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                     int cropH = difH / 100 * (int) zoom_level;
                     cropW -= cropW & 3;
                     cropH -= cropH & 3;
+                    Log.d("CROPW", String.valueOf(cropW));
+                    Log.d("CROPH", String.valueOf(cropH));
                     Rect zoom = new Rect(cropW, cropH, m.width() - cropW, m.height() - cropH);
                     Camera2Manager.getPreviewRequestBuilder().set(CaptureRequest.SCALER_CROP_REGION, zoom);
                 }
@@ -100,6 +103,12 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                 if (action == MotionEvent.ACTION_UP) {
                     //handleFocusCamera1(event, params);
                 }
+            }
+            try {
+                Camera2Manager.getCaptureSession().setRepeatingRequest(Camera2Manager.getPreviewRequestBuilder().build(), Camera2Manager.getCaptureCallbackInstance(),
+                        null);
+            } catch (Exception e){
+
             }
         }
         return true;

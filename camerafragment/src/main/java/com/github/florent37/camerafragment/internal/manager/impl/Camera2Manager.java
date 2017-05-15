@@ -73,7 +73,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     private CameraDevice cameraDevice;
     private CaptureRequest previewRequest;
     private static CaptureRequest.Builder previewRequestBuilder;
-    private CameraCaptureSession captureSession;
+    private static CameraCaptureSession captureSession;
     private CameraCharacteristics frontCameraCharacteristics;
     private CameraCharacteristics backCameraCharacteristics;
     private StreamConfigurationMap frontCameraStreamConfigurationMap;
@@ -81,6 +81,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     private SurfaceTexture texture;
     private Surface workingSurface;
     private ImageReader imageReader;
+    static private CameraCaptureSession.CaptureCallback captureCallbackInstance = null;
     private CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(CameraDevice cameraDevice) {
@@ -158,7 +159,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
         final Point size = new Point();
         display.getSize(size);
         windowSize = new Size(size.x, size.y);
-
+        captureCallbackInstance = captureCallback;
         try {
             final String[] ids = manager.getCameraIdList();
             numberOfCameras = ids.length;
@@ -841,5 +842,14 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     static public CaptureRequest.Builder getPreviewRequestBuilder(){
         return previewRequestBuilder;
     }
+
+    static public CameraCaptureSession getCaptureSession(){
+        return captureSession;
+    }
+
+    static public CameraCaptureSession.CaptureCallback getCaptureCallbackInstance(){
+        return captureCallbackInstance;
+    }
+
 
 }

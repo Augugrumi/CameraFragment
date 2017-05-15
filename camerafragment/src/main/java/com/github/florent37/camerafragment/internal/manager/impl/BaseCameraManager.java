@@ -24,7 +24,7 @@ abstract class BaseCameraManager<CameraId, SurfaceListener>
     private static final String TAG = "BaseCameraManager";
 
     protected Context context;
-    ConfigurationProvider configurationProvider;
+    static ConfigurationProvider configurationProvider;
 
     MediaRecorder videoRecorder;
     boolean isVideoRecording = false;
@@ -43,7 +43,7 @@ abstract class BaseCameraManager<CameraId, SurfaceListener>
     Size windowSize;
 
     HandlerThread backgroundThread;
-    Handler backgroundHandler;
+    static Handler backgroundHandler;
     Handler uiHandler = new Handler(Looper.getMainLooper());
 
     @Override
