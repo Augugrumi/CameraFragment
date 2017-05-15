@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.github.florent37.camerafragment.CameraFragment;
 import com.github.florent37.camerafragment.CameraFragmentApi;
 import com.github.florent37.camerafragment.configuration.Configuration;
+import com.github.florent37.camerafragment.internal.ui.BaseAnncaFragment;
 import com.github.florent37.camerafragment.listeners.CameraFragmentControlsAdapter;
 import com.github.florent37.camerafragment.listeners.CameraFragmentResultAdapter;
 import com.github.florent37.camerafragment.listeners.CameraFragmentStateAdapter;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPhotoTaken(byte[] bytes, String filePath) {
                     Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
+                    ((BaseAnncaFragment) cameraFragment).reSetZoom(getApplicationContext());
                 }
             },
             "/storage/self/primary",

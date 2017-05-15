@@ -155,10 +155,13 @@ public class Camera2Controller implements CameraController<String>,
         return currentCameraId;
     }
 
+    AutoFitTextureView auto = null;
     @Override
     public void onCameraOpened(String openedCameraId, Size previewSize, TextureView.SurfaceTextureListener surfaceTextureListener) {
         cameraView.updateUiForMediaAction(Configuration.MEDIA_ACTION_UNSPECIFIED);
-        cameraView.updateCameraPreview(previewSize, new AutoFitTextureView(context, surfaceTextureListener));
+        if (auto == null)
+            auto = new AutoFitTextureView(context, surfaceTextureListener);
+        cameraView.updateCameraPreview(previewSize, auto);
         cameraView.updateCameraSwitcher(camera2Manager.getNumberOfCameras());
     }
 

@@ -14,10 +14,12 @@ import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -152,10 +154,12 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
         return fragment;
     }
 
+    static View viewForContext = null;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View decorView = ((Activity) container.getContext()).getWindow().getDecorView();
+        viewForContext = decorView;
         if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM) {
             int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
@@ -240,6 +244,8 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
                 MediaAction.ACTION_VIDEO : MediaAction.ACTION_PHOTO;
     }
 
+    private static ZoomAndFocusHandler zoom = null;
+
     @SuppressWarnings("deprecated")
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -277,7 +283,8 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
 
         notifyListeners();
 
-        previewContainer.setOnTouchListener(new ZoomAndFocusHandler());
+        zoom = new ZoomAndFocusHandler();
+        previewContainer.setOnTouchListener(zoom);
     }
 
     public void notifyListeners() {
@@ -287,7 +294,8 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     }
 
     @Override
-    public void takePhotoOrCaptureVideo(final CameraFragmentResultListener resultListener, @Nullable String directoryPath, @Nullable String fileName) {
+    public void takePhotoOrCaptureVideo(final CameraFragmentResultListener resultListener,
+                                        @Nullable String directoryPath, @Nullable String fileName) {
         switch (currentMediaActionState) {
             case MediaAction.ACTION_PHOTO:
                 takePhoto(resultListener, directoryPath, fileName);
@@ -303,6 +311,15 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
                 }
                 break;
         }
+
+
+    }
+
+    private static MotionEvent e = MotionEvent.obtain(SystemClock.currentThreadTimeMillis(), SystemClock.currentThreadTimeMillis(),
+            MotionEvent.ACTION_UP,144.0f, 1343.0f, 0);
+
+    public static void reSetZoom(Context c){
+        zoom.onTouch(viewForContext, e);
     }
 
     @Override
