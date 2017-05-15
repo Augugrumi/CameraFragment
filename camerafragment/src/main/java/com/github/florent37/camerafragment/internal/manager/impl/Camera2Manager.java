@@ -72,7 +72,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     private CameraManager manager;
     private CameraDevice cameraDevice;
     private CaptureRequest previewRequest;
-    private CaptureRequest.Builder previewRequestBuilder;
+    private static CaptureRequest.Builder previewRequestBuilder;
     private CameraCaptureSession captureSession;
     private CameraCharacteristics frontCameraCharacteristics;
     private CameraCharacteristics backCameraCharacteristics;
@@ -836,6 +836,10 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
     @IntDef({STATE_PREVIEW, STATE_WAITING_LOCK, STATE_WAITING_PRE_CAPTURE, STATE_WAITING_NON_PRE_CAPTURE, STATE_PICTURE_TAKEN})
     @Retention(RetentionPolicy.SOURCE)
     @interface CameraPreviewState {
+    }
+
+    static public CaptureRequest.Builder getPreviewRequestBuilder(){
+        return previewRequestBuilder;
     }
 
 }
