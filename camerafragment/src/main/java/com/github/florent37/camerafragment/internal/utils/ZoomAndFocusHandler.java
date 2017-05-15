@@ -1,20 +1,14 @@
 package com.github.florent37.camerafragment.internal.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.florent37.camerafragment.internal.manager.impl.Camera1Manager;
 import com.github.florent37.camerafragment.internal.manager.impl.Camera2Manager;
@@ -41,6 +35,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         currentCameraId = Camera2Manager.getCurrentCameraIdInstance();
 
         if (mCamera != null) {
+
             android.hardware.Camera.Parameters params = mCamera.getParameters();
             int action = event.getAction();
             if (event.getPointerCount() > 1) {
@@ -59,6 +54,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
             }
         } else if (currentCameraId != null){
             CameraManager manager = (CameraManager) view.getContext().getSystemService(Context.CAMERA_SERVICE);
+
             int action = event.getAction();
             CameraCharacteristics characteristics = null;
             try {
@@ -161,7 +157,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         // ...
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return (float)Math.sqrt(x * x + y * y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
 }
