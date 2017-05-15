@@ -318,7 +318,7 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     private static MotionEvent e = MotionEvent.obtain(SystemClock.currentThreadTimeMillis(), SystemClock.currentThreadTimeMillis(),
             MotionEvent.ACTION_UP,144.0f, 1343.0f, 0);
 
-    public static void reSetZoom(Context c){
+    public static void reSetZoom(){
         zoom.onTouch(viewForContext, e);
     }
 

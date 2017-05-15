@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPhotoTaken(byte[] bytes, String filePath) {
                     Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
-                    ((BaseAnncaFragment) cameraFragment).reSetZoom(getApplicationContext());
+                    ((BaseAnncaFragment) cameraFragment).reSetZoom();
                 }
             },
             "/storage/self/primary",
