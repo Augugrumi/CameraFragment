@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRecordButtonClicked() {
         final CameraFragmentApi cameraFragment = getCameraFragment();
         if (cameraFragment != null) {
+            ((BaseAnncaFragment) cameraFragment).reSetZoom();
             cameraFragment.takePhotoOrCaptureVideo(new CameraFragmentResultAdapter() {
                 @Override
                 public void onVideoRecorded(String filePath) {

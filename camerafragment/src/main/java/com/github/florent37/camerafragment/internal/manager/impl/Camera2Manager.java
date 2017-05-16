@@ -690,7 +690,7 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
                 }
             };
 
-            captureSession.stopRepeating();
+            //captureSession.stopRepeating();
             captureSession.capture(captureBuilder.build(), CaptureCallback, null);
 
         } catch (CameraAccessException e) {
