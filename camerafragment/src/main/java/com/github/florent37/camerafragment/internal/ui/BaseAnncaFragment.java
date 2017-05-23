@@ -775,4 +775,8 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     public void setResultListener(CameraFragmentResultListener cameraFragmentResultListener) {
         this.cameraFragmentResultListener = cameraFragmentResultListener;
     }
+
+    public Object getCurrentCameraId(){
+        return cameraController.getCameraManager().getCurrentCameraId()
+    }
 }

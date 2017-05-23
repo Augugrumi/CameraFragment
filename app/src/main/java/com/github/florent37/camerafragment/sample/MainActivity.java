@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onPhotoTaken(byte[] bytes, String filePath) {
                     Toast.makeText(getBaseContext(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
                     ((BaseAnncaFragment) cameraFragment).reSetZoom();
+                    if(((BaseAnncaFragment) cameraFragment).getCurrentCameraId() != null){
+                        cameraFragment.switchCameraTypeFrontBack();
+                        cameraFragment.switchCameraTypeFrontBack();
+                    }
                 }
             },
             "/storage/self/primary",
