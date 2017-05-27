@@ -777,6 +777,6 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     }
 
     public Object getCurrentCameraId(){
-        return cameraController.getCameraManager().getCurrentCameraId()
+        return cameraController.getCameraManager().getCurrentCameraId();
     }
 }
