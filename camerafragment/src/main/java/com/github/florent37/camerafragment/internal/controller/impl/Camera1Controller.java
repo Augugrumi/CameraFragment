@@ -174,6 +174,12 @@ public class Camera1Controller implements CameraController<Integer>,
     @Override
     public void onPhotoTaken(byte[] bytes, File photoFile, CameraFragmentResultListener callback) {
         cameraView.onPhotoTaken(bytes, callback);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Camera1Manager.getCameraInstance().startPreview();
     }
 
     @Override
