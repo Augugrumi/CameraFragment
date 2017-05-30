@@ -141,13 +141,20 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         float y = event.getY(pointerIndex);
 
         List<String> supportedFocusModes = params.getSupportedFocusModes();
-        if (supportedFocusModes != null &&
-                supportedFocusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO)) {
-            mCamera.autoFocus(new android.hardware.Camera.AutoFocusCallback() {
-                @Override
-                public void onAutoFocus(boolean success, android.hardware.Camera camera) {}
-            });
+
+        try {
+            if (supportedFocusModes != null &&
+                    supportedFocusModes.contains(android.hardware.Camera.Parameters.FOCUS_MODE_AUTO)) {
+                mCamera.autoFocus(new android.hardware.Camera.AutoFocusCallback() {
+                    @Override
+                    public void onAutoFocus(boolean success, android.hardware.Camera camera) {}
+                });
+            }
+        } catch (Throwable ignore) {
+            ignore.printStackTrace();
         }
+
+
     }
 
     /** Determine the space between the first two fingers */
