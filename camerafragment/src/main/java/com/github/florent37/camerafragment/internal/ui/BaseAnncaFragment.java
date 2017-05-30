@@ -618,9 +618,9 @@ public abstract class BaseAnncaFragment<CameraId> extends Fragment implements Ca
     }
 
     protected void takePhoto(CameraFragmentResultListener callback, @Nullable String directoryPath, @Nullable String fileName) {
-        if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM) {
+        /*if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM) {
             new MediaActionSound().play(MediaActionSound.SHUTTER_CLICK);
-        }
+        }*/
         setRecordState(Record.TAKE_PHOTO_STATE);
         this.cameraController.takePhoto(callback, directoryPath, fileName);
         if (cameraFragmentStateListener != null) {
