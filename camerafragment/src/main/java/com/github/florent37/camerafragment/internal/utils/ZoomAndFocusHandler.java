@@ -9,6 +9,7 @@ import android.hardware.camera2.CaptureRequest;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.florent37.camerafragment.internal.manager.impl.Camera1Manager;
 import com.github.florent37.camerafragment.internal.manager.impl.Camera2Manager;
@@ -26,7 +27,8 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
     private Camera mCamera;
     private String currentCameraId;
     float mDist = 0;
-    public int zoom_level = 1;
+    private int zoom_level = 1;
+
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
@@ -35,7 +37,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         currentCameraId = Camera2Manager.getCurrentCameraIdInstance();
 
         if (mCamera != null) {
-
+            Log.d("ZOOM", "CAMERA1");
             android.hardware.Camera.Parameters params = mCamera.getParameters();
             int action = event.getAction();
             if (event.getPointerCount() > 1) {
@@ -53,6 +55,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                 }
             }
         } else if (currentCameraId != null){
+            Log.d("ZOOM", "CAMERA2");
             CameraManager manager = (CameraManager) view.getContext().getSystemService(Context.CAMERA_SERVICE);
 
             int action = event.getAction();
@@ -69,7 +72,7 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
             if (event.getPointerCount() > 1) {
                 // Multi touch logic
                 current_finger_spacing = getFingerSpacing(event);
-
+                Log.d("ZOOM", "RESIZE");
                 if (mDist != 0) {
 
                     if (current_finger_spacing > mDist && maxzoom > zoom_level) {
@@ -87,8 +90,6 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
                     int cropH = difH / 100 * (int) zoom_level;
                     cropW -= cropW & 3;
                     cropH -= cropH & 3;
-                    Log.d("CROPW", String.valueOf(cropW));
-                    Log.d("CROPH", String.valueOf(cropH));
                     Rect zoom = new Rect(cropW, cropH, m.width() - cropW, m.height() - cropH);
                     Camera2Manager.getPreviewRequestBuilder().set(CaptureRequest.SCALER_CROP_REGION, zoom);
                 }
@@ -96,6 +97,8 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
             }
             else {
                 // handle single touch events
+                Log.d("ZOOM", "SINGLE TOUCH");
+                Log.d("ZOOM", event.toString());
                 if (action == MotionEvent.ACTION_UP) {
                     //handleFocusCamera1(event, params);
                 }
@@ -110,11 +113,6 @@ public class ZoomAndFocusHandler implements View.OnTouchListener {
         return true;
     }
 
-    private void handleZoomCamera2(MotionEvent event, float scale, View view) {
-        Log.d("ZOOM","BUT HOW???");
-
-
-    }
 
     private void handleZoomCamera1(MotionEvent event, android.hardware.Camera.Parameters params) {
         int maxZoom = params.getMaxZoom();
