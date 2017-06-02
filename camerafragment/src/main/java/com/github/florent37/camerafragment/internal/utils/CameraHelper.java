@@ -65,8 +65,7 @@ public final class CameraHelper {
                     Log.i("LEVEL_CAMERA2", (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED) + "");
                     Log.i("LEVEL_CAMERA3", (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_FULL) + "");
                     //Log.i("LEVEL_CAMERA4", (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_3) + "");
-                    if (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY
-                            || supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LIMITED) {
+                    if (supportLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) {
                         notNull = false;
                         break;
                     }
